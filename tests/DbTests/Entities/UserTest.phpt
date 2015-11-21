@@ -2,6 +2,7 @@
 
 /**
  * @testCase
+ * @multiple 50
  */
 
 namespace DbTests;
