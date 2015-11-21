@@ -1,0 +1,12 @@
+extensions:
+	annotations: Kdyby\Annotations\DI\AnnotationsExtension
+	events: Kdyby\Events\DI\EventsExtension
+	console: Kdyby\Console\DI\ConsoleExtension
+	doctrine: Kdyby\Doctrine\DI\OrmExtension
+	eventDispatcher: Symnedi\EventDispatcher\DI\EventDispatcherExtension
+	migrations: Zenify\DoctrineMigrations\DI\MigrationsExtension
+
+
+doctrine:
+	metadata:
+		Db: %appDir%/Entities

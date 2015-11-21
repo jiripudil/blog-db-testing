@@ -1,0 +1,11 @@
+doctrine:
+	driver: pdo_pgsql
+	host: 127.0.0.1
+	user: postgres
+	password:
+	dbname: db_tests
+
+
+migrations:
+	directory: %appDir%/../migrations/pgsql
+	namespace: DbTests\PgSqlMigrations

@@ -1,0 +1,2 @@
+doctrine:
+	wrapperClass: DbTests\ConnectionMock

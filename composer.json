@@ -1,0 +1,23 @@
+{
+	"name": "jiripudil/blog-db-testing",
+	"require": {
+		"nette/nette": "~2.3.0",
+		"kdyby/doctrine": "~3.0.0",
+		"doctrine/migrations": "dev-master as 1.0.99-dev",
+		"zenify/doctrine-migrations": "~2.3.0"
+	},
+	"require-dev": {
+		"nette/tester": "~1.6.0",
+		"doctrine/data-fixtures": "dev-master"
+	},
+	"autoload": {
+		"psr-4": {
+			"Db\\": "app/"
+		}
+	},
+	"autoload-dev": {
+		"psr-0": {
+			"DbTests\\": "tests/"
+		}
+	}
+}
