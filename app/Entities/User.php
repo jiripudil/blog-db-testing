@@ -2,10 +2,10 @@
 
 namespace Db\Entities;
 
+use Db\Security\IPasswordHasher;
 use Doctrine\ORM\Mapping as ORM;
 use Kdyby\Doctrine\Entities\MagicAccessors;
 use Nette\Object;
-use Nette\Security\Passwords;
 
 
 /**
@@ -43,11 +43,12 @@ class User extends Object
 	/**
 	 * @param string $email
 	 * @param string $password
+	 * @param IPasswordHasher $hasher
 	 */
-	public function __construct($email, $password)
+	public function __construct($email, $password, IPasswordHasher $hasher)
 	{
 		$this->email = $email;
-		$this->password = Passwords::hash($password);
+		$this->password = $hasher->hash($password);
 	}
 
 
@@ -71,11 +72,12 @@ class User extends Object
 
 	/**
 	 * @param string $password
+	 * @param IPasswordHasher $hasher
 	 * @return bool
 	 */
-	public function verifyPassword($password)
+	public function verifyPassword($password, IPasswordHasher $hasher)
 	{
-		return Passwords::verify($password, $this->password);
+		return $hasher->verify($password, $this->password);
 	}
 
 }

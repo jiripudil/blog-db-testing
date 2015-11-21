@@ -10,3 +10,7 @@ extensions:
 doctrine:
 	metadata:
 		Db: %appDir%/Entities
+
+
+services:
+	- Db\Security\NativeHasher

@@ -7,6 +7,7 @@
 namespace DbTests;
 
 use Db\Entities\User;
+use Db\Security\IPasswordHasher;
 use Doctrine\DBAL\Platforms\MySqlPlatform;
 use Doctrine\DBAL\Platforms\PostgreSqlPlatform;
 use Kdyby\Doctrine\EntityManager;
@@ -33,11 +34,12 @@ class UserTest extends TestCase
 	public function testUser()
 	{
 		$user = $this->getEm()->getRepository(User::class)->findOneBy(['email' => 'me@jiripudil.cz']);
+		$hasher = $this->getContainer()->getByType(IPasswordHasher::class);
 
 		Assert::type(User::class, $user);
 		Assert::same('me@jiripudil.cz', $user->getEmail());
-		Assert::true($user->verifyPassword('mySuperSecretPassword'));
-		Assert::false($user->verifyPassword('myWrongPassword'));
+		Assert::true($user->verifyPassword('mySuperSecretPassword', $hasher));
+		Assert::false($user->verifyPassword('myWrongPassword', $hasher));
 	}
 
 
@@ -54,8 +56,9 @@ class UserTest extends TestCase
 	public function testIsolation1()
 	{
 		$em = $this->getEm();
+		$hasher = $this->getContainer()->getByType(IPasswordHasher::class);
 
-		$user = new User('john.doe@example.com', 'password');
+		$user = new User('john.doe@example.com', 'password', $hasher);
 		$em->persist($user)->flush();
 
 		Assert::type(User::class, $em->getRepository(User::class)->findOneBy(['email' => 'john.doe@example.com']));
